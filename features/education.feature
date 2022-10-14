@@ -1,22 +1,7 @@
-Feature: Edication
-Scenario: Should sucsess education
+Feature: Education
 
-Before(async() =>{
-    constbrowser=await puppeteer.launch({ headless:false, slowMo:50 });
-    constpage=await browser.newPage();
-    this.browser= browser;
-    this.page= page;
-});
+    Scenario: Should sucsess education
+        Given go to the page "http://qamid.tmweb.ru/client/hall.php"
+        When choose date by selector ".page-nav > a:nth-child(1)" #Empty
+        Then ticket received "Сегодня"
 
-    Given ("user is on page", async (string) => {
-    // to do;
-    return "pending"
-});
-    When ("one ticket booking today", async (string) => {
-    // to do;
-    return "pending"
-});
-    Then ("ticket received", async (string) => {
-    // to do;
-    return "pending"
-}) 

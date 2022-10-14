@@ -9,6 +9,7 @@ describe("test", () => {
   beforeEach(async () => {
     page = await browser.newPage();
     await page.goto("http://qamid.tmweb.ru/client/index.php");
+    await page.goto("http://qamid.tmweb.ru/client/index.php");
     await page.setDefaultNavigationTimeout(0);
   });
   afterEach(() => {
@@ -51,7 +52,7 @@ describe("test", () => {
     expect(value).toEqual("Электронный билет");
   });
 
-  test("booking occupied place", async () => {
+  test.only("booking occupied place", async () => {
     await clickElement(page, ".page-nav > a:nth-child(1)");
     await clickElement(page, "section > div:nth-child(3) > ul > li");
     await clickElement(
