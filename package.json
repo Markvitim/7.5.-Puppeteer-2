@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --watchAll --detectOpenHandles",
+    "cucumber": "cucumber-js"
   },
-  "author": "",
+  "author": "Mark",
   "license": "ISC",
   "dependencies": {
+    "@cucumber/cucumber": "^8.6.0",
+    "chai": "^4.3.6",
+    "cucumber": "^6.0.7",
     "jest-puppeteer": "^6.1.1",
     "puppeteer": "^18.0.5"
   },
