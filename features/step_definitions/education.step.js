@@ -1,18 +1,9 @@
-const {
-  Given,
-  When,
-  Then,
-  Before,
-  After,
-  setDefaultTimeout,
-} = require("@cucumber/cucumber");
+const { Given, When, Then, Before, After, And } = require("@cucumber/cucumber");
 const puppeteer = require("puppeteer");
-const expect = require("chai");
-const { useCucumber, clickElement } = require("../../lib/commands.js");
+const expect = require("chai").expect;
+const { getText, click } = require("../../lib/response.js");
 
-//setDefaultTimeout(100000);
-
-Before(async () => {
+Before(async function () {
   const browser = await puppeteer.launch({
     headless: false,
     slowMo: 300,
@@ -23,7 +14,7 @@ Before(async () => {
   this.page = page;
 });
 
-After(async () => {
+After(async function () {
   if (this.browser) {
     await this.browser.close();
   }
@@ -32,13 +23,44 @@ After(async () => {
 Given("go to the page {string}", { timeout: 80000 }, async function (string) {
   return await this.page.goto(string);
 });
-When("choose date by selector {string} #Empty", async function (string) {
-  console.log(string);
-  await this.page.clickElement(this.page, string);
-  //return "pending";
+When(
+  "choose date by selector {string}",
+  { timeout: 80000 },
+  async function (string) {
+    await this.page.waitForSelector(string);
+    return this.page.click(string);
+  }
+);
+When(
+  "choose time by selector {string}",
+  { timeout: 80000 },
+  async function (string) {
+    await this.page.waitForSelector(string);
+    return this.page.click(string);
+  }
+);
+When(
+  "choose chair by selector {string}",
+  { timeout: 80000 },
+  async function (string) {
+    await this.page.waitForSelector(string);
+    return this.page.click(string);
+  }
+);
+When("confirm booking {string}", { timeout: 80000 }, async function (string) {
+  await this.page.waitForSelector(string);
+  return this.page.click(string);
 });
+When(
+  "getting booking code {string}",
+  { timeout: 80000 },
+  async function (string) {
+    await this.page.waitForSelector(string);
+    return this.page.click(string);
+  }
+);
+
 Then("ticket received {string}", async function (string) {
-  console.log(string);
-  const element = await this.page.waitForSelector(".page-nav > a > span");
-  expect(element).contains(string);
+  const actual = await getText(this.page, "h2");
+  expect(actual).contain(string);
 });
